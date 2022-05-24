@@ -1,0 +1,3 @@
+src\test\java\steps\Hooks.class
+src\test\java\steps\DemoSteps.class
+src\test\java\runners\TestRunner.class
