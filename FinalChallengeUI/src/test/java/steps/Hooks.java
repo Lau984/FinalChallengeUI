@@ -8,10 +8,14 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.time;
+
 public class Hooks {
 
     private static WebDriver driver;
     private static int numberOfScenario = 0;
+
 
     @Before
     public void setUp(){

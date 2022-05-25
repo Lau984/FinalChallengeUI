@@ -38,15 +38,31 @@ public class ListsPage extends BasePage{
     WebElement selectCoverImage;
 
     @FindBy (xpath="(//div[@class='details'])[1]")
-    WebElement Movie5;
+    public
+    WebElement firstMovie;
 
     @FindBy (xpath="(//div[@class='details']//a)[1]")
-    WebElement title;
+    public
+    WebElement titleFirstMovie;
+
+    @FindBy (xpath = "(//div[@class='details']//li)[1]")
+    WebElement quantityElements;
+
+    @FindBy (xpath = "//a[@class='button rounded' and  contains(@href,'edit')]")
+    public
+    WebElement editList;
+
+    @FindBy (xpath = "//span[@class='glyphicons_v2 circle-remove']")
+    public
+    WebElement deleteElement;
+
+
 
 
     public void CreateNewList(String Name, String Description){
         newListBtn.click();
         listNameTxt.sendKeys(Name);
+        System.out.println(Name);
         listDescriptionTxt.sendKeys(Description);
         continueStep1Btn.click();
     }
@@ -70,10 +86,49 @@ public class ListsPage extends BasePage{
         addImageOption.click();
     }
 
+    public void ExistList(){
+        Assert.assertEquals(true, firstMovie.isDisplayed());
+        System.out.println(firstMovie.getText());
+    }
+    public void SelectList(){
+        titleFirstMovie.click();
+    }
+
+    public void GetAndRefresh(String url){
+        driver.get(url);
+        driver.navigate().refresh();
+    }
+
+
+
         public void VerifyListRecentlyCreated(String ListName, String [] moviesList){
-            System.out.println(Movie5.getText());
-            Assert.assertEquals(title.getText(),ListName);
-            Assert.assertThat(Movie5.getText(), stringContainsInOrder(ListName,Integer.toString(moviesList.length)));
+            System.out.println(firstMovie.getText());
+            Assert.assertEquals(titleFirstMovie.getText(),ListName);
+            Assert.assertThat(firstMovie.getText(), stringContainsInOrder(ListName,Integer.toString(moviesList.length)));
         }
+
+        public void TheListHasItems(){
+        if (quantityElements.getText().equals("0 elementos")){
+            System.out.println("The first list doesn't have elements");
+            Assert.assertThat(quantityElements.getText(), stringContainsInOrder("500 elementos"));
+
+        }
+        else  {
+            System.out.println(quantityElements.getText());
+            SelectList();
+        }
+
+
+        }
+        public void EditList(){
+            editList.click();
+        }
+
+        public void DeleteElementinthelist(){
+
+            deleteElement.click();
+        }
+
+
 
 }
